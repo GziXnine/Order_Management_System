@@ -31,7 +31,6 @@ public:
   bool changeStatus(EOrderStatus newStatus);
 
   bool canBeCancelled() const;
-
   void cancel();
 };
 

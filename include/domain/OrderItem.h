@@ -3,7 +3,7 @@
 
 #include "Product.h"
 
-// Product class is included here because OrderItem has a Product as a member. This is composition — an OrderItem "has a" Product. We need the full definition of Product to declare a Product member variable. If we only had a pointer or reference to Product, we could get away with a forward declaration (e.g., "class Product;") and avoid including the header, but in this case, we need the complete class definition.
+// Aggregation: OrderItem "has a" Product, but OrderItem can exist without a Product (e.g., if we want to create an OrderItem and set the Product later). Using a pointer allows for this flexibility.
 
 class OrderItem
 {
@@ -15,6 +15,7 @@ private:
 public:
   OrderItem();
   OrderItem(const Product &product, int quantity);
+  ~OrderItem();
 
   const Product &getProduct() const;
   int getQuantity() const;
@@ -24,6 +25,8 @@ public:
   void setQuantity(int quantity);
 
   void calculateLineTotal();
+
+  bool operator==(const OrderItem &other) const;
 };
 
 #endif // ORDER_ITEM_H

@@ -2,6 +2,7 @@
 #define PRODUCT_H
 
 #include <string>
+#include <stdexcept>
 
 class Product
 {
@@ -24,7 +25,6 @@ public:
   void setPrice(double price);
   void setActive(bool active);
 
-  void deactivate();
   void updatePrice(double newPrice);
 };
 
