@@ -71,3 +71,13 @@ void Inventory::restock(int productId, int qty)
 
   products[productId] += qty;
 }
+
+int Inventory::getAvailableQuantity(int productId) const
+{
+  auto it = products.find(productId);
+  int total = (it != products.end()) ? it->second : 0;
+  auto rit = reservedProducts.find(productId);
+  int reserved = (rit != reservedProducts.end()) ? rit->second : 0;
+
+  return std::max(0, total - reserved);
+}

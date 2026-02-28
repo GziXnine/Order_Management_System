@@ -2,10 +2,17 @@
 #include <algorithm>
 #include <stdexcept>
 
-Order::Order(int orderId) : orderId(orderId), items(), totalAmount(0.0), status(EOrderStatus::Placed)
+Order::Order() : orderId(0), customerId(0), items(), totalAmount(0.0), status(EOrderStatus::Placed)
+{
+  timestamp = std::time(nullptr);
+}
+
+Order::Order(int orderId, int customerId) : orderId(orderId), customerId(customerId), items(), totalAmount(0.0), status(EOrderStatus::Placed)
 {
   if (orderId <= 0)
     throw std::invalid_argument("orderId must be positive");
+  if (customerId <= 0)
+    throw std::invalid_argument("customerId must be positive");
 
   timestamp = std::time(nullptr);
 }
@@ -13,6 +20,7 @@ Order::Order(int orderId) : orderId(orderId), items(), totalAmount(0.0), status(
 Order::~Order() = default;
 
 int Order::getOrderId() const { return orderId; }
+int Order::getCustomerId() const { return customerId; }
 const std::vector<OrderItem> &Order::getItems() const { return items; }
 double Order::getTotalAmount() const { return totalAmount; }
 std::time_t Order::getTimestamp() const { return timestamp; }

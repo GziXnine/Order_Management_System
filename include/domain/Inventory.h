@@ -15,6 +15,7 @@ public:
   void release(int productId, int qty);
   void deduct(int productId, int qty);
   void restock(int productId, int qty);
+  int getAvailableQuantity(int productId) const;
 };
 
 #endif // INVENTORY_H

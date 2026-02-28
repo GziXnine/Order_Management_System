@@ -1,15 +1,65 @@
 #include "../../include/domain/OrderItem.h"
+#include <stdexcept>
 
 OrderItem::OrderItem() : product(nullptr), quantity(0), lineTotal(0.0) {}
 OrderItem::OrderItem(const Product &product, int quantity)
     : product(new Product(product)), quantity(quantity), lineTotal(0.0)
 {
+  if (quantity <= 0)
+    throw std::invalid_argument("Quantity must be at least 1");
+
   calculateLineTotal();
 }
 
 OrderItem::~OrderItem()
 {
   delete product;
+}
+
+// Copy constructor (deep copy)
+OrderItem::OrderItem(const OrderItem &other)
+    : product(other.product ? new Product(*other.product) : nullptr),
+      quantity(other.quantity),
+      lineTotal(other.lineTotal) {}
+
+// Copy assignment (deep copy)
+OrderItem &OrderItem::operator=(const OrderItem &other)
+{
+  if (this != &other)
+  {
+    delete product;
+    product = other.product ? new Product(*other.product) : nullptr;
+    quantity = other.quantity;
+    lineTotal = other.lineTotal;
+  }
+
+  return *this;
+}
+
+// Move constructor
+OrderItem::OrderItem(OrderItem &&other) noexcept
+    : product(other.product), quantity(other.quantity), lineTotal(other.lineTotal)
+{
+  other.product = nullptr;
+  other.quantity = 0;
+  other.lineTotal = 0.0;
+}
+
+// Move assignment
+OrderItem &OrderItem::operator=(OrderItem &&other) noexcept
+{
+  if (this != &other)
+  {
+    delete product;
+    product = other.product;
+    quantity = other.quantity;
+    lineTotal = other.lineTotal;
+    other.product = nullptr;
+    other.quantity = 0;
+    other.lineTotal = 0.0;
+  }
+
+  return *this;
 }
 
 const Product &OrderItem::getProduct() const

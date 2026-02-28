@@ -4,22 +4,25 @@
 #include <vector>
 #include <ctime>
 #include "OrderItem.h"
-#include "EOrderStatus.h"
+#include "enum/EOrderStatus.h"
 
 class Order
 {
 private:
   int orderId;
+  int customerId;
   std::vector<OrderItem> items;
   double totalAmount;
   EOrderStatus status;
   std::time_t timestamp;
 
 public:
-  Order(int orderId);
+  Order();
+  Order(int orderId, int customerId);
   ~Order();
 
   int getOrderId() const;
+  int getCustomerId() const;
   const std::vector<OrderItem> &getItems() const;
   double getTotalAmount() const;
   std::time_t getTimestamp() const;

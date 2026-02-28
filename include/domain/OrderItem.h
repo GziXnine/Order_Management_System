@@ -17,6 +17,12 @@ public:
   OrderItem(const Product &product, int quantity);
   ~OrderItem();
 
+  // Rule of Five: raw pointer requires explicit copy/move
+  OrderItem(const OrderItem &other);
+  OrderItem &operator=(const OrderItem &other);
+  OrderItem(OrderItem &&other) noexcept;
+  OrderItem &operator=(OrderItem &&other) noexcept;
+
   const Product &getProduct() const;
   int getQuantity() const;
   double getLineTotal() const;
