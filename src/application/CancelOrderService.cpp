@@ -1,6 +1,9 @@
 #include "../../include/application/CancelOrderService.h"
 #include <stdexcept>
 
+CancelOrderService::CancelOrderService(IOrderRepository &repo, Inventory &inv, IPaymentProvider &payment, INotificationService &notifier)
+    : orderRepo(repo), inventory(inv), paymentProvider(payment), notificationService(notifier) {}
+
 void CancelOrderService::cancelOrder(int orderId)
 {
   Order order = orderRepo.findById(orderId);

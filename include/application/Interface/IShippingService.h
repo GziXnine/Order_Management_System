@@ -1,7 +1,7 @@
 #ifndef ISHIPPING_SERVICE_H
 #define ISHIPPING_SERVICE_H
 
-#include "../domain/Order.h"
+#include "../../domain/Order.h"
 
 class IShippingService
 {
